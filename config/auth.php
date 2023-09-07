@@ -12,6 +12,14 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
+    
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User_table::class, // Your custom User model
+        ],
+    ],
+
 
     'defaults' => [
         'guard' => 'web',

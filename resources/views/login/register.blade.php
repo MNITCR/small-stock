@@ -1,6 +1,7 @@
 @extends('link.links')
 
-@section('title', 'Login Page')
+@section('title', 'Register Page')
+
 <style>
     /* Light mode styles */
     .light-mode {
@@ -28,20 +29,32 @@
             <i class="fa-solid fa-moon fs-2" id="mode-icon"></i>
         </div>
 
-        <div class="row d-flex justify-content-center align-items-center" style="height: 100vh;"">
+        <div class="row d-flex justify-content-center align-items-center" style="height: 100vh;">
             <div class="col-md-6">
                 <div class="card bg-dark" id="dark-mode-card">
-                    <div class="fs-2 text-center fw-bold fst-italic mt-2">{{ __('ទម្រង់ចូល') }}</div>
-                    {{-- <div class="mt-2" style="width: 100%;height: 1px;background: rgb(172, 172, 172)"></div> --}}
+                    <div class="fs-2 fw-bold fst-italic text-center mt-2">{{ __('ទម្រង់​ ចុះឈ្មោះ') }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
+
                             <div class="form-group">
+                                <div class="mb-1">
+                                    <label for="name">{{ __('ឈ្មោះ') }}</label>
+                                </div>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mt-2">
                                 <div class="mb-1">
                                     <label for="email">{{ __('អុីម៉ែល') }}</label>
                                 </div>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>>
-                                @error('name')
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -52,7 +65,7 @@
                                 <div class="mb-1">
                                     <label for="password">{{ __('ពាក្យសម្ងាត់') }}</label>
                                 </div>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -60,25 +73,18 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group mt-2">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('ចង់ចាំខ្ញុំ') }}
-                                    </label>
+                            <div class="form-group mb-2 mt-2">
+                                <div class="mb-1">
+                                    <label for="password-confirm">{{ __('បញ្ជាក់ពាក្យសម្ងាត់') }}</label>
                                 </div>
-                            </div>
-                            <div class="mt-3">
-                                <button type="submit" class="btn btn-primary">{{ __('ចូល') }}</button>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
 
-                            @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            @endif
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('ចុះឈ្មោះ') }}
+                            </button>
                             <div class="mt-2">
-                                <p style="font-size: 13px;color:rgb(125, 125, 125)">បើសិនមិនទាន់មានគណនីទេចុចត្រង់<a href="./register">បង្កើតគណនី</a></p>
+                                <p style="font-size: 13px;color:rgb(125, 125, 125)">បើសិនមានគណនីរួចហើយចុចត្រង់<a href="/">ចូលគណនី</a></p>
                             </div>
                         </form>
                     </div>
@@ -131,4 +137,3 @@
     </script>
 
 @endsection
-
