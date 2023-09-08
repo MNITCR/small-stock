@@ -26,7 +26,7 @@
 @section('content')
     <div class="container-fluid light-mode">
         <div class="mt-3 d-flex justify-content-end me-auto" id="toggle-mode" style="position: absolute; cursor: pointer;right: 2rem;">
-            <i class="fa-solid fa-moon fs-2" id="mode-icon"></i>
+            <i class="fa-solid fs-2" id="mode-icon"></i>
         </div>
 
         <div class="row d-flex justify-content-center align-items-center" style="height: 100vh;">
@@ -93,47 +93,7 @@
         </div>
     </div>
 
-    <script>
-        const toggleButton = document.getElementById("toggle-mode");
-        const container = document.querySelector(".container-fluid");
-        const cards = document.getElementById("dark-mode-card");
-        const modeIcon = document.getElementById("mode-icon");
-
-        // Check if user preference is stored in localStorage
-        const isDarkMode = localStorage.getItem("darkMode") === "true";
-
-        // Set initial mode based on localStorage or system preference
-        if (isDarkMode) {
-            container.classList.add("dark-mode");
-            cards.classList.add("bg-dark");
-        } else {
-            container.classList.add("light-mode");
-            cards.classList.add("bg-white");
-        }
-
-        toggleButton.addEventListener("click", () => {
-            if (container.classList.contains("light-mode")) {
-                container.classList.remove("light-mode");
-                container.classList.add("dark-mode");
-                cards.classList.remove("bg-white");
-                cards.classList.add("bg-dark");
-                modeIcon.classList.remove("fa-moon");
-                modeIcon.classList.add("fa-sun");
-
-                // Store the dark mode preference in localStorage
-                localStorage.setItem("darkMode", "true");
-            } else {
-                container.classList.remove("dark-mode");
-                container.classList.add("light-mode");
-                cards.classList.remove("bg-dark");
-                cards.classList.add("bg-white");
-                modeIcon.classList.remove("fa-sun");
-                modeIcon.classList.add("fa-moon");
-
-                // Remove the dark mode preference from localStorage
-                localStorage.setItem("darkMode", "false");
-            }
-        });
-    </script>
+    {{-- link js --}}
+    {{-- <script src="{{ asset('js/rejester/rejester.js') }}"></script> --}}
 
 @endsection
