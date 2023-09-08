@@ -90,4 +90,13 @@ $(document).ready(function() {
     function deleteCookie(name) {
       document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
     }
+});
+
+$(document).ready(function () {
+  $("#forgotPasswordModal").click(function(){
+    $("#PasswordModal").modal('show');
   });
+  $('#closeModalButton').on('click', function () {
+    $('#PasswordModal').modal('hide');
+  });
+});

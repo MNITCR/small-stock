@@ -35,15 +35,14 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-
                             <div class="form-group">
                                 <div class="mb-1">
                                     <label for="email">{{ __('អុីម៉ែល') }}</label>
                                 </div>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="invalid-feedback mt-1 mb-1" role="alert">
+                                        <strong style="font-size: 10px" class="text-danger">{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -73,11 +72,13 @@
                                 <button type="submit" class="btn btn-primary">{{ __('ចូល') }}</button>
                             </div>
 
-                            @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
+                            @if ($errors->has('email') || $errors->has('password'))
+                                <div class="alert alert-danger mt-3">
+                                    អ៊ី​ម៉ែ​ល​ឬ​ពាក្យសម្ងាត់​មិន​ត្រឹមត្រូវ
+                                    <a href="#" data-toggle="modal" id="forgotPasswordModal">ភ្លេច​លេខសំងាត់​?</a>
+                                </div>
                             @endif
+
                             <div class="mt-2">
                                 <p style="font-size: 13px;color:rgb(125, 125, 125)">បើសិនមិនទាន់មានគណនីទេចុចត្រង់<a href="./register">បង្កើតគណនី</a></p>
                             </div>
@@ -87,7 +88,50 @@
                 </div>
             </div>
         </div>
+
+        <!-- Forgot Password Modal -->
+        <div class="modal fade" id="PasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="forgotPasswordModalLabel">ភ្លេច​លេខសំងាត់​?</h5>
+                        <div id="closeModalButton" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa-solid fa-circle-xmark fs-5 text-dark"></i></span>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('password.email') }}">
+                            @csrf
+
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right text-dark">{{ __('អាស័យ​ដ្ឋាន​អ៊ី​ម៉េ​ល') }}</label>
+                                <div class="col-md-6 text-dark">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                    @error('email')
+                                        <span class="invalid-feedback mt-1 mb-1" role="alert">
+                                            <strong style="font-size: 10px" class="text-danger">{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary" style="font-size: 13px">
+                                        {{ __('ផ្ញើតំណកំណត់ពាក្យសម្ងាត់ឡើងវិញ') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
 
 @endsection
 
